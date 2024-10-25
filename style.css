@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --index: calc(1vw + 1vh);
+  --transition: cubic-bezier(0.1, 0.7, 0, 1);
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+body {
+  background: #141414;
+}
+.items {
+  display: flex;
+  gap: 0.4rem;
+  perspective: calc(var(--index) * 35);
+}
+.item {
+  background-color: #222;
+  background-size: cover;
+  background-position: center;
+  width: calc(var(--index) * 3);
+  height: calc(var(--index) * 12);
+  cursor: pointer;
+  transition: transform 1.25s var(--transition), filter 3s var(--transition);
+  filter: grayscale() brightness(0.5);
+  will-change: transform, filter;
+}
+.item::before,
+.item::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 100%;
+  right: calc(var(--index) * -1);
+}
+.item::after {
+  left: calc(var(--index) * -1);
+}
+.items .item:hover {
+  transform: translateZ(calc(var(--index) * 10));
+  filter: inherit;
+}
+.items .item:hover + * {
+  transform: translateZ(calc(var(--index) * 8.5)) rotateY(35deg);
+  z-index: -1;
+  filter: inherit;
+}
+.items .item:hover + * + * {
+  transform: translateZ(calc(var(--index) * 5.6)) rotateY(40deg);
+  z-index: -2;
+  filter: inherit;
+}
+.items .item:hover + * + * + * {
+  transform: translateZ(calc(var(--index) * 2.4)) rotateY(30deg);
+  z-index: -3;
+  filter: inherit;
+}
+.items .item:hover + * + * + * + * {
+  transform: translateZ(calc(var(--index) * 0.6)) rotateY(14deg);
+  z-index: -4;
+  filter: inherit;
+}
+.item:has(+ :hover) {
+  transform: translateZ(calc(var(--index) * 8.5)) rotateY(-35deg);
+  filter: inherit;
+}
+.item:has(+ * + :hover) {
+  transform: translateZ(calc(var(--index) * 5.6)) rotateY(-40deg);
+  filter: inherit;
+}
+.item:has(+ * + * + :hover) {
+  transform: translateZ(calc(var(--index) * 2.4)) rotateY(-30deg);
+  filter: inherit;
+}
+.item:has(+ * + * + * + :hover) {
+  transform: translateZ(calc(var(--index) * 0.6)) rotateY(-14deg);
+  filter: inherit;
+}
+.items .item:active,
+.items .item:focus {
+  width: 28vw;
+  transform: translateZ(calc(var(--index) * 10));
+  filter: inherit;
+  z-index: 100;
+  margin: 0 0.45vw;
+}
